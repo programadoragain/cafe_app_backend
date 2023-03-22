@@ -1,4 +1,4 @@
-package com.ferdev.cafe.ServiceImpl;
+package com.ferdev.cafe.Service;
 
 import com.ferdev.cafe.Jwt.JwtFilter;
 import com.ferdev.cafe.Jwt.JwtUtil;
@@ -161,6 +161,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return CafeUtils.getResponseEntity(CafeConstanst.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void sendMailToAllAdmin(String status, String email, List<String> allAdmin) {
