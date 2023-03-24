@@ -12,4 +12,7 @@ public interface BillRestController {
 
     @PostMapping("/generate")
     ResponseEntity<String> generateReport(@RequestBody Map<String,Object> requestMap);
+
+    @GetMapping("/getBills")
+    ResponseEntity<List<Bill>> getBills();
 }

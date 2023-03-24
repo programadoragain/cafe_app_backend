@@ -31,6 +31,17 @@ public class BillServiceImpl implements BillService {
     JwtFilter jwtFilter;
 
     @Override
+    public ResponseEntity<List<Bill>> getBills() {
+        List<Bill> list= new ArrayList<>();
+        if (jwtFilter.isAdmin()) {
+            list= billRepository.getAllBills();
+        } else
+            list= billRepository.getAllBillsByUsername(jwtFilter.getCurrentUser());
+
+        return new ResponseEntity<List<Bill>>(list, HttpStatus.OK);
+    }    
+
+    @Override
     public ResponseEntity<String> generateReport(Map<String, Object> requestMap) {
         log.info("Inside generateReport ");
         try {

@@ -1,11 +1,12 @@
 package com.ferdev.cafe.Service;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.ferdev.cafe.Entities.Bill;
+import java.util.List;
 
 import java.util.Map;
 
 public interface BillService{
-
+    ResponseEntity<List<Bill>> getBills();
     ResponseEntity<String> generateReport(Map<String,Object> requestMap);
 }

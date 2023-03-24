@@ -27,4 +27,14 @@ public class BillRestControllerImpl implements BillRestController{
         }
         return new ResponseEntity<String>(CafeConstanst.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<List<Bill>> getBills() {
+        try{
+            return billService.getBills();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
