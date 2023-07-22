@@ -47,7 +47,7 @@ public class EmailUtils {
         helper.setSubject(subject);
         String htmlMsg="<p><b>Your login credentials for Cafe Management System</b><br><b>Email: </b> " + to
                         + " <br><b>Password: </b> " + password
-                        + "<br><a href=\"http://localhost:4200/\">Click here to login</a></p>";
+                        + "<br><a href=\"http://localhost:4200/login\">Click here to login</a></p>";
         message.setContent(htmlMsg, "text/html");
         emailSender.send(message);
     }

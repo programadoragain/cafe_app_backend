@@ -29,9 +29,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors()
+                .and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/user/login", "/user/signup", "/user/forgotpassword").permitAll()
+                .requestMatchers("/user/login", "/user/signup", "/user/forgot-password").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
@@ -42,10 +44,12 @@ public class SecurityConfig {
                 .build();
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
      @Bean
      public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

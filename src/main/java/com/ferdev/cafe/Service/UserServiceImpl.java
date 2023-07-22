@@ -6,11 +6,9 @@ import com.ferdev.cafe.Security.CustomUserDetailsService;
 import com.ferdev.cafe.Constants.CafeConstanst;
 import com.ferdev.cafe.Entities.User;
 import com.ferdev.cafe.Repositories.UserRepository;
-import com.ferdev.cafe.Service.UserService;
 import com.ferdev.cafe.Util.CafeUtils;
 import com.ferdev.cafe.Util.EmailUtils;
 import com.ferdev.cafe.Wrapper.UserWrapper;
-import io.jsonwebtoken.lang.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +24,15 @@ import java.util.*;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    PasswordEncoder passwordEncode;
 
     @Autowired
     JwtUtil jwtUtil;
@@ -72,16 +74,17 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<String> login(Map<String, String> requestMap) {
         log.info("Inside login {}", requestMap);
         try {
-            Authentication authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password")));
+             Authentication authentication= authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password")));
 
             if (authentication.isAuthenticated()) {
                 if (customUserDetailsService.getUserDetail().getStatus().equalsIgnoreCase("true"))
                     return new ResponseEntity<String>("{\"token\":\"" + jwtUtil.generateToken(customUserDetailsService.getUserDetail().getEmail(), customUserDetailsService.getUserDetail().getRole()) + "\"}", HttpStatus.OK);
+                else
+                    return new ResponseEntity<String>("{\"message\"" + "Wait for admin approval" + "\"}", HttpStatus.OK);
             }
-            else {
-                return new ResponseEntity<String>("{\"message\"" + "Wait for admin approval" + "\"}", HttpStatus.BAD_REQUEST);
-            }
-        }catch (Exception ex) {
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return new ResponseEntity<String>("{\"message\"" + "Bad credential" + "\"}", HttpStatus.BAD_REQUEST);
@@ -126,7 +129,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> checkToken() {
-        return new ResponseEntity<>("", HttpStatus.OK);
+        return new ResponseEntity<>("function not implemented yet", HttpStatus.OK);
     }
 
     @Override
@@ -192,9 +195,9 @@ public class UserServiceImpl implements UserService {
         user.setName(requestMap.get("name"));
         user.setPhone(requestMap.get("phone"));
         user.setEmail(requestMap.get("email"));
-        user.setPassword(requestMap.get("password"));
-        user.setStatus(requestMap.get("false"));
-        user.setRole(requestMap.get("user"));
+        user.setPassword(passwordEncode.encode(requestMap.get("password")));
+        user.setStatus("false");
+        user.setRole("user");
 
         return user;
     }

@@ -16,7 +16,7 @@ public interface UserRestController {
     @PostMapping("/signup")
     ResponseEntity<String> signUp(@RequestBody(required = true) Map<String,String> requestMap);
 
-    @PostMapping("login")
+    @PostMapping("/login")
     ResponseEntity<String> login(@RequestBody(required = true) Map<String,String> requestMap);
 
     @GetMapping("/test")
@@ -28,7 +28,7 @@ public interface UserRestController {
     @PostMapping("/update")
     ResponseEntity<String> update(@RequestBody(required = true) Map<String,String> requestMap);
 
-    @GetMapping("/checktoken")
+    @GetMapping("/check-token")
     ResponseEntity<String> checkToken();
 
     @PostMapping("/change-password")
