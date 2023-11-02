@@ -10,10 +10,10 @@ import java.util.Map;
 @RequestMapping("/bill")
 public interface BillRestController {
 
-    @PostMapping("/generate")
+    @PostMapping("/generateReport")
     ResponseEntity<String> generateReport(@RequestBody Map<String,Object> requestMap);
 
-    @GetMapping("/getBills")
+    @GetMapping("/getAllBills")
     ResponseEntity<List<Bill>> getBills();
 
     @PostMapping("/getPdf")

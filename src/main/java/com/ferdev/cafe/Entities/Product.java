@@ -8,10 +8,12 @@ import org.hibernate.annotations.Fetch;
 
 import java.io.Serializable;
 
+/* Queries changed to ProductRepository location.
 @NamedQuery(name = "Product.getAllProduct", query = "select new com.ferdev.cafe.Wrapper.ProductWrapper(p.id, p.name, p.category.id, p.category.name, p.description, p.price, p.status) from Product p")
 @NamedQuery(name = "Product.getProductById", query = "select new com.ferdev.cafe.Wrapper.ProductWrapper(p.id, p.name, p.category.id, p.category.name, p.description, p.price, p.status) from Product p where p.id=:id")
 @NamedQuery(name = "Product.getAllProductByCategory", query = "select new com.ferdev.cafe.Wrapper.ProductWrapper(p.id, p.name, p.category.id, p.category.name, p.description, p.price, p.status) from Product p where p.category.id=:id and p.status='true'")
 @NamedQuery(name = "Product.updateStatusProduct", query = "update Product p set p.status=:status where p.id=:id")
+*/
 
 @Data
 @Entity

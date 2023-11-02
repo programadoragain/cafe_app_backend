@@ -89,13 +89,13 @@ public class BillServiceImpl implements BillService {
 
                 document.add(table);
 
-                Paragraph footer= new Paragraph("Total: " + requestMap.get("total") + " \n"
+                Paragraph footer= new Paragraph("Total: " + requestMap.get("totalAmount") + " \n"
                         + "Thank you for visiting, please visit again!", getFont("Data"));
 
                 document.add(footer);
                 document.close();
 
-                return new ResponseEntity<>("{\"uuid\":\"" + fileName + "\"}", HttpStatus.OK);
+                return new ResponseEntity<>("{\"uuid\":\"" + fileName + ".pdf" + "\"}", HttpStatus.OK);
             }
             return CafeUtils.getResponseEntity("Required data not found.", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -152,7 +152,7 @@ public class BillServiceImpl implements BillService {
         log.info("Inside of addRows ");
         table.addCell((String) data.get("name"));
         table.addCell((String) data.get("category"));
-        table.addCell((String) data.get("quantity"));
+        table.addCell(Double.toString((Double) data.get("quantity")));
         table.addCell(Double.toString((Double) data.get("price")));
         table.addCell(Double.toString((Double) data.get("total")));
     }
@@ -206,7 +206,7 @@ public class BillServiceImpl implements BillService {
             bill.setEmail((String) requestMap.get("email"));
             bill.setContactNumber((String) requestMap.get("contactNumber"));
             bill.setPaymentMethod((String) requestMap.get("paymentMethod"));
-            bill.setTotal(Integer.parseInt((String) requestMap.get("total")));
+            bill.setTotal(Integer.parseInt((String) requestMap.get("totalAmount")));
             bill.setProductDetails((String) requestMap.get("productDetails"));
             bill.setCreatedBy(jwtFilter.getCurrentUser());
             billRepository.save(bill);
@@ -218,7 +218,7 @@ public class BillServiceImpl implements BillService {
     private boolean validateRequestMap(Map<String, Object> requestMap) {
         return (requestMap.containsKey("name") && requestMap.containsKey("contactNumber")
                 && requestMap.containsKey("email") && requestMap.containsKey("paymentMethod")
-                && requestMap.containsKey("productDetails") && requestMap.containsKey("total"));
+                && requestMap.containsKey("productDetails") && requestMap.containsKey("totalAmount"));
     }
 
 

@@ -66,9 +66,6 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public ResponseEntity<List<Category>> getAllCategory(String filterValue) {
         try {
-            if(!filterValue.isEmpty() && filterValue.equalsIgnoreCase("true")) {
-                return new ResponseEntity<List<Category>>(categoryRepository.getAllCategory(), HttpStatus.OK);
-            }
             return new ResponseEntity<List<Category>>(categoryRepository.findAll(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

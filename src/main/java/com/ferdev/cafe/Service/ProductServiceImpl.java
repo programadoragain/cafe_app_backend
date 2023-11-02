@@ -54,16 +54,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<ProductWrapper> getProductById(Integer id) {
-        try {
-            return new ResponseEntity<ProductWrapper>(productRepository.getProductById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<ProductWrapper>(new ProductWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @Override
     public ResponseEntity<List<ProductWrapper>> getAllProductByCategory(Integer id) {
         try {
             return new ResponseEntity<List<ProductWrapper>>(productRepository.getAllProductByCategory(id), HttpStatus.OK);
@@ -71,6 +61,16 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
         }
         return new ResponseEntity<List<ProductWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<ProductWrapper> getProductById(Integer id) {
+        try {
+            return new ResponseEntity<ProductWrapper>(productRepository.getProductById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<ProductWrapper>(new ProductWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -160,4 +160,20 @@ public class ProductServiceImpl implements ProductService {
         }
         return false;
     }
+
+    /*
+    private ProductWrapper convertProductToProductWrapper(Product p) {
+        ProductWrapper pw= new ProductWrapper();
+        if (p != null) {
+            pw.setId(p.getId());
+            pw.setCategoryId(p.getCategory().getId());
+            pw.setCategoryName(p.getCategory().getName());
+            pw.setName(p.getName());
+            pw.setDescription(p.getDescription());
+            pw.setPrice(p.getPrice());
+            pw.setStatus(p.getStatus());
+        }
+        return pw;
+    }
+    */
 }

@@ -10,13 +10,13 @@ import java.util.Map;
 @RequestMapping("/product")
 public interface ProductRestController {
 
-    @GetMapping("/get")
+    @GetMapping("/getAllProducts")
     ResponseEntity<List<ProductWrapper>> getAllProduct();
 
     @GetMapping("/getProductById/{id}")
     ResponseEntity<ProductWrapper> getProductById(@PathVariable Integer id);
 
-    @GetMapping("/getAllByCategory/{id}")
+    @GetMapping("/getAllProductsByCategory/{id}")
     ResponseEntity<List<ProductWrapper>> getAllProductByCategory(@PathVariable Integer id);
 
     @PostMapping("/add")
@@ -28,6 +28,6 @@ public interface ProductRestController {
     @PostMapping("/delete/{id}")
     ResponseEntity<String> deleteProduct(@PathVariable Integer id);
 
-    @PostMapping("/updateStatus")
+    @PostMapping("/update-status")
     ResponseEntity<String> addStatus(@RequestBody(required = true) Map<String,String> request);
 }

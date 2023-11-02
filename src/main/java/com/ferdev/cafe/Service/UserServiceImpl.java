@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
         try {
             User user= userRepository.findByEmail(jwtFilter.getCurrentUser());
-            if (!user.equals(null)) {
+            if (user != null) {
                 if (user.getPassword().equals(requestMap.get("oldPassword"))) {
                     user.setPassword(requestMap.get("newPassword"));
                     userRepository.save(user);

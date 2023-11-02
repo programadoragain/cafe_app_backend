@@ -1,5 +1,6 @@
 package com.ferdev.cafe.Service;
 
+import com.ferdev.cafe.Entities.Product;
 import com.ferdev.cafe.Wrapper.ProductWrapper;
 import org.springframework.http.ResponseEntity;
 
